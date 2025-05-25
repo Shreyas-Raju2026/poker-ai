@@ -47,8 +47,8 @@
   <h1>Poker Bot</h1>
   <form id="bot-form">
     <label>
-      community (string - e.g., "Jc,Qd,Kh" or leave empty for preflop)
-      <input type="text" id="community" placeholder="Enter community cards or leave empty for preflop">
+      community (string - e.g., "Jc,Qd,Kh" or n/a for preflop)
+      <input type="text" id="community" placeholder="Enter community cards or n/a for preflop">
     </label>
     <label>
       hole (string - e.g., "As,Kd")
@@ -70,6 +70,10 @@
       initialBb (number)
       <input type="number" id="initialBb" required placeholder="Initial big blind size">
     </label>
+    <label>
+        model (string)
+        <input type="text" id="model" required placeholder="ChatGPT, DeepSeek, Claude">
+      </label>
     <button type="submit">Submit</button>
   </form>
   <pre id="output"></pre>
@@ -79,6 +83,7 @@
     <p><strong>Hole cards format:</strong> Enter two cards separated by commas (e.g., "As,Kd").</p>
     <p><strong>Community cards format:</strong> Enter 3, 4, or 5 cards separated by commas (e.g., "Jc,Qd,Kh").</p>
     <p><strong>Position:</strong> One of SB, BB, UTG, MP, CO, or BTN.</p>
+    <p><strong>Model:</strong> Choose from ChatGPT, DeepSeek, or Claude.</p>
   </div>
   <script>
     // Named-parameter style: payload object
@@ -109,6 +114,7 @@
       const community = document.getElementById('community').value.trim();
       const players = parseInt(document.getElementById('players').value, 10);
       const hole = document.getElementById('hole').value.trim();
+      const model = document.getElementById('model').value.trim();
       const outputEl = document.getElementById('output');
       const errorMsgEl = document.getElementById('error-message');
       errorMsgEl.textContent = '';
@@ -130,7 +136,7 @@
       }
 
       // Construct payload and call API
-      const payload = { call, initialBb, position, community, players, hole };
+      const payload = { call, initialBb, position, community, players, hole, model };
       console.log('Payload:', payload);
       outputEl.textContent = 'Loading…';
 
